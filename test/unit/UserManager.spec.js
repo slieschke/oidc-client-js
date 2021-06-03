@@ -152,6 +152,22 @@ describe("UserManager", function () {
                 return Promise.resolve()
             }
             subject.signinSilent({prompt:"foo"});
+        });
+
+        it("should pass scope from settings when refreshing token if configured", function(done) {
+
+            stubUserStore.item = new User({refresh_token:"refresh_token"}).toStorageString();
+
+            settings.includeScopeInTokenRefresh = true;
+            settings.scope = "scope";
+            subject = new UserManager(settings);
+
+            subject._useRefreshToken = function(args){
+                args.scope.should.equal("scope");
+                done();
+                return Promise.resolve()
+            }
+            subject.signinSilent();
         })
     });
 

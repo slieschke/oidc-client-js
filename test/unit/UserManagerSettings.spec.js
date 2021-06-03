@@ -129,6 +129,28 @@ describe("UserManagerSettings", function () {
         });
     });
 
+    describe("includeScopeInTokenRefresh", function () {
+        it("should return true value from initial settings", function () {
+            let subject = new UserManagerSettings({
+                includeScopeInTokenRefresh: true,
+            });
+            subject.includeScopeInTokenRefresh.should.be.true;
+        });
+
+        it("should return false value from initial settings", function () {
+            let subject = new UserManagerSettings({
+                includeScopeInTokenRefresh: false,
+            });
+            subject.includeScopeInTokenRefresh.should.be.false;
+        });
+
+        it("should use default value", function () {
+            let subject = new UserManagerSettings({
+            });
+            subject.includeScopeInTokenRefresh.should.be.false;
+        });
+    });
+
     describe("accessTokenExpiringNotificationTime", function () {
 
         it("should return value from initial settings", function () {

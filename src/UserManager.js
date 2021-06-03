@@ -165,6 +165,9 @@ export class UserManager extends OidcClient {
         return this._loadUser().then(user => {
             if (user && user.refresh_token) {
                 args.refresh_token = user.refresh_token;
+                if (this.settings.includeScopeInTokenRefresh) {
+                    args.scope = this.settings.scope;
+                }
                 return this._useRefreshToken(args);
             }
             else {
